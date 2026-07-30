@@ -1,0 +1,40 @@
+// Usamos la versión 3 de protocol buffers
+syntax = "proto3";
+
+// Un nombre para empaquetar el código generado
+package ledger;
+
+// 1. Definimos el Servicio (Las acciones que se pueden hacer)
+service LedgerService {
+  rpc ReserveFunds(ReserveRequest) returns (ReserveResponse);
+  rpc ConfirmTransaction(ConfirmRequest) returns (ConfirmResponse);
+  rpc CompensateTransaction(CompensateRequest) returns (CompensateResponse);
+}
+
+// 2. Definición de estructuras de datos que viajan en las peticiones y respuestas
+message ReserveRequest {
+  string transaction_id = 1;
+  string account_id = 2;
+  double amount = 3;
+}
+
+message ReserveResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ConfirmRequest {
+  string transaction_id = 1;
+}
+
+message ConfirmResponse {
+  bool success = 1;
+}
+
+message CompensateRequest {
+  string transaction_id = 1;
+}
+
+message CompensateResponse {
+  bool success = 1;
+}
