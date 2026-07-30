@@ -22,7 +22,7 @@ import { SagaOrchestratorService } from './services/saga-orchestrator.service';
           package: 'ledger',
           protoPath: join(process.cwd(), 'src/proto/ledger_service.proto'), // Usamos process.cwd() como acordamos antes
           // Usamos 'development' (nombre del contenedor) para que Docker lo resuelva, o IP/localhost
-          url: 'account-ledger-service-development:50051', 
+          url: 'account-ledger-services-development:50051', // Tenía una 's' de menos en 'services'
         },
       },
     ]),

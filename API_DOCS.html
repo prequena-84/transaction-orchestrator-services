@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Documentación API - Transaction Orchestrator Service</title>
+    <style>
+        @page { size: A4 landscape; margin: 20mm; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; }
+        h1, h2 { color: #0056b3; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 14px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        th { background-color: #f4f4f4; color: #333; }
+        .method { font-weight: bold; padding: 4px 8px; border-radius: 4px; color: white; }
+        .get { background-color: #28a745; }
+        .post { background-color: #ffc107; color: black; }
+        .patch { background-color: #17a2b8; }
+        code { background-color: #f8f9fa; padding: 2px 4px; border-radius: 4px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>Transaction Orchestrator Service (BFF / Saga)</h1>
+    <p>Documentación técnica de los endpoints del Orquestador.</p>
+
+    <h2>1. Módulo: Transacciones (Saga Orquestación)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Endpoint</th>
+                <th>Propósito</th>
+                <th>Params / Query</th>
+                <th>Body (Request)</th>
+                <th>Respuesta (Response)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="method post">POST</span> /api/v1/transactions</td>
+                <td>Inicia una Saga de Transferencia</td>
+                <td>N/A</td>
+                <td><code>{ "source_account": "UUID", "target_account": "UUID", "amount": 100.50, "currency": "USD" }</code></td>
+                <td>HTTP 201: Objeto <code>TransactionEntity</code> (Estado Inicial: PENDING)</td>
+            </tr>
+            <tr>
+                <td><span class="method get">GET</span> /api/v1/transactions/:transaction_id</td>
+                <td>Consultar estado de la transacción (Polling)</td>
+                <td><code>transaction_id</code> (UUID) en URL</td>
+                <td>N/A</td>
+                <td>HTTP 200: Objeto <code>TransactionEntity</code> (Estado actual)</td>
+            </tr>
+            <tr>
+                <td><span class="method patch">PATCH</span> /api/v1/transactions/:transaction_id/state</td>
+                <td>Actualizar estado manual (Webhooks internos)</td>
+                <td><code>transaction_id</code> (UUID) en URL</td>
+                <td><code>{ "saga_state": "COMPLETED" | "FAILED" }</code></td>
+                <td>HTTP 200: Objeto <code>TransactionEntity</code> actualizado</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

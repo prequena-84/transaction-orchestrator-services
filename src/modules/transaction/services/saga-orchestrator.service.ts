@@ -13,7 +13,7 @@ interface ReserveFundsResponse {
 }
 
 interface LedgerGrpcService {
-  reserveFunds(data: { transaction_id: string; account_id: string; amount: number }, metadata: Metadata): any;
+  reserveFunds(data: { transactionId: string; accountId: string; amount: number }, metadata: Metadata): any;
 }
 
 @Injectable()
@@ -50,8 +50,8 @@ export class SagaOrchestratorService implements OnModuleInit {
       // 5. LLAMADA gRPC CON RESILIENCIA (RxJS):
       // Construimos el Observable de la petición al Ledger
       const rpcCall = this.ledgerService.reserveFunds({
-        transaction_id: transactionId,
-        account_id: sourceAccountId,
+        transactionId: transactionId,
+        accountId: sourceAccountId,
         amount: amount
       }, metadata);
 

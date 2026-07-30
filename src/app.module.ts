@@ -26,7 +26,7 @@ import { TransactionModule } from './modules/transaction/transaction.module';
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME, // Tomará 'orchestrator_db' del .env
         autoLoadEntities: true, // Carga mágicamente las entidades de los módulos
-        synchronize: process.env.DB_SYNCHRONIZE === 'true',
+        synchronize: true, // Forzado a true para la prueba, igual que en el Ledger
         logging: process.env.DB_LOGGING === 'true',
       }),
     }),
