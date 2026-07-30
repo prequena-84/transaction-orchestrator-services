@@ -1,9 +1,9 @@
 export enum SagaStateEnum {
     PENDING = 'PENDING',
+    RESERVED = 'RESERVED',
     COMPLETED = 'COMPLETED',
     FAILED = 'FAILED',
-    COMPENSATING = 'COMPENSATING',
-    CANCELLED = 'CANCELLED'
+    CANCELLED_COMPENSATED = 'CANCELLED_COMPENSATED'
 }
 
 export enum CurrencyEnum {

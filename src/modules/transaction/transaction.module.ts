@@ -6,6 +6,7 @@ import { join } from 'path';
 import { TransactionEntity } from './domain/transaction.entity';
 import { TransactionRepository } from './repositories/transaction.repository';
 import { TransactionController } from './interfaces/controller/transaction.controller';
+import { SagaOrchestratorService } from './services/saga-orchestrator.service';
 
 @Module({
   imports: [
@@ -20,13 +21,14 @@ import { TransactionController } from './interfaces/controller/transaction.contr
         options: {
           package: 'ledger',
           protoPath: join(process.cwd(), 'src/proto/ledger_service.proto'), // Usamos process.cwd() como acordamos antes
-          url: '[IP_ADDRESS]', // Usamos la IP del host para conectar con la Mac - 'localhost:5000',
+          // Usamos 'development' (nombre del contenedor) para que Docker lo resuelva, o IP/localhost
+          url: 'account-ledger-service-development:50051', 
         },
       },
     ]),
   ],
   controllers: [TransactionController],
-  providers: [TransactionRepository],
-  exports: [TransactionRepository], // Exportado por si otro módulo necesita consultarlo
+  providers: [TransactionRepository, SagaOrchestratorService],
+  exports: [TransactionRepository, SagaOrchestratorService], // Exportado por si otro módulo necesita consultarlo
 })
 export class TransactionModule { };
