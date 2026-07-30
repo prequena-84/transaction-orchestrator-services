@@ -15,9 +15,6 @@ services:
       - .:/app
       - /app/node_modules
     restart: unless-stopped
-    depends_on:
-      - postgres-dev
-      - adminer
 
   production:
     container_name: "transaction-orchestrator-services-production"
